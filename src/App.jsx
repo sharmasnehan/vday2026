@@ -185,8 +185,8 @@ const DPad = ({ keysRef }) => {
   const press = (dir) => keysRef.current.add(dir);
   const release = (dir) => keysRef.current.delete(dir);
 
-  const size = 'w-[90px] h-[90px] sm:w-[100px] sm:h-[100px]';
-  const btnSize = 'w-[32px] h-[32px] sm:w-[36px] sm:h-[36px]';
+  const size = 'w-[100px] h-[100px] sm:w-[120px] sm:h-[120px]';
+  const btnSize = 'w-[36px] h-[36px] sm:w-[42px] sm:h-[42px]';
 
   const DirBtn = ({ dir, children, className = "" }) => (
     <button
@@ -235,7 +235,7 @@ const ActionButton = ({ label, onAction, color = "rose", subLabel = "" }) => {
   return (
     <div className="flex flex-col items-center gap-1">
       <button
-        className={`w-[52px] h-[52px] sm:w-[58px] sm:h-[58px] rounded-full border-[3px] shadow-[3px_3px_0px_rgba(0,0,0,0.3)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 font-pixel text-[10px] sm:text-xs text-white select-none ${colors[color]}`}
+        className={`w-[70px] h-[70px] sm:w-[90px] sm:h-[90px] rounded-full border-[4px] shadow-[4px_4px_0px_rgba(0,0,0,0.3)] active:shadow-none active:translate-x-1 active:translate-y-1 font-pixel text-sm sm:text-base text-white select-none ${colors[color]}`}
         onPointerDown={start}
         onPointerUp={stop}
         onPointerLeave={stop}
@@ -1679,7 +1679,7 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen min-h-[100dvh] bg-gradient-to-b from-pink-200 to-pink-300 flex flex-col items-start justify-start pt-10 sm:pt-12 px-2 pb-4 font-pixel select-none overflow-hidden"
+      className="min-h-screen min-h-[100dvh] bg-gradient-to-b from-pink-200 to-pink-300 flex flex-row items-center justify-center px-3 py-4 gap-4 sm:gap-6 font-pixel select-none overflow-hidden"
       style={{ touchAction: 'none' }}
     >
       <style>{`
@@ -1688,8 +1688,13 @@ export default function App() {
         .animate-float { animation: float 2s ease-in-out infinite; }
       `}</style>
 
-      {/* === GAME CONTAINER === */}
-      <div className="w-full max-w-[400px] mx-auto bg-neutral-200 rounded-2xl p-2 shadow-2xl border-b-4 border-r-4 border-neutral-300">
+      {/* === D-PAD (LEFT SIDE) === */}
+      <div className={`flex-shrink-0 transition-opacity ${!isPlaying ? 'opacity-30 pointer-events-none' : ''}`}>
+        <DPad keysRef={keysRef} />
+      </div>
+
+      {/* === GAME CONTAINER (CENTER) === */}
+      <div className="flex-shrink-0 bg-neutral-200 rounded-2xl p-2 shadow-2xl border-b-4 border-r-4 border-neutral-300">
         <div className="bg-neutral-800 rounded-xl p-2 flex flex-col">
 
           {/* Power LED + Level indicator */}
@@ -1706,7 +1711,7 @@ export default function App() {
           </div>
 
           {/* ====== SCREEN ====== */}
-          <div className="w-full aspect-[4/3] rounded shadow-inner overflow-hidden relative border-2 border-neutral-700/50 bg-[#E0F8CF]">
+          <div className="w-[280px] h-[210px] sm:w-[320px] sm:h-[240px] rounded shadow-inner overflow-hidden relative border-2 border-neutral-700/50 bg-[#E0F8CF]">
             <ScanlineOverlay />
 
             {/* --- PASSWORD SCREEN --- */}
@@ -1765,31 +1770,14 @@ export default function App() {
         </div>
       </div>
 
-      {/* ====== CONTROLS - OUTSIDE THE GAMEBOY ====== */}
-      <div className="w-full max-w-[400px] mx-auto mt-8 sm:mt-12">
-        <div className={`flex items-center justify-between px-2 sm:px-4 transition-opacity ${!isPlaying ? 'opacity-30 pointer-events-none' : ''}`}>
-          <DPad keysRef={keysRef} />
-
-          <div className="flex gap-3 -rotate-[12deg]">
-            <ActionButton
-              label="B"
-              color="rose"
-            />
-            <ActionButton
-              label="A"
-              onAction={() => actionRef.current?.()}
-              color="rose"
-              subLabel="Act"
-            />
-          </div>
-        </div>
-        
-        {/* Instructions */}
-        {isPlaying && (
-          <div className="mt-4 text-pink-700/50 text-[6px] sm:text-[7px] font-pixel text-center">
-            D-PAD: Move • A: Action
-          </div>
-        )}
+      {/* === ACTION BUTTON (RIGHT SIDE) === */}
+      <div className={`flex-shrink-0 transition-opacity ${!isPlaying ? 'opacity-30 pointer-events-none' : ''}`}>
+        <ActionButton
+          label="A"
+          onAction={() => actionRef.current?.()}
+          color="rose"
+          subLabel="Action"
+        />
       </div>
     </div>
   );
