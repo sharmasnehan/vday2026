@@ -270,37 +270,37 @@ const ReunionScreen = ({ level, onContinue }) => {
   };
 
   return (
-    <div className={`w-full h-full flex flex-col items-center justify-center ${backgrounds[level]} relative overflow-hidden`}>
-      <div className="text-[10px] sm:text-xs text-white/80 mb-2 font-pixel drop-shadow-lg">
+    <div className={`w-full h-full flex flex-col items-center justify-center ${backgrounds[level]} relative overflow-hidden p-2`}>
+      <div className="text-[8px] sm:text-[10px] text-white/80 mb-1 font-pixel drop-shadow-lg">
         {levelData.city}, {levelData.country}
       </div>
-      <div className="text-4xl mb-4">{landmarks[level]}</div>
-      <div className="flex items-end gap-4 mb-4">
-        <PixelCharacter type="snehan" className="w-10 h-12 sm:w-12 sm:h-14 animate-bounce" />
-        {isLastLevel && <div className="w-6 h-6 sm:w-8 sm:h-8 animate-pulse"><PixelRing /></div>}
-        <PixelCharacter type="anahotta" className="w-10 h-12 sm:w-12 sm:h-14 animate-bounce" style={{ animationDelay: '0.2s' }} />
+      <div className="text-2xl sm:text-3xl mb-2">{landmarks[level]}</div>
+      <div className="flex items-end gap-3 mb-2">
+        <PixelCharacter type="snehan" className="w-8 h-10 sm:w-10 sm:h-12 animate-bounce" />
+        {isLastLevel && <div className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse"><PixelRing /></div>}
+        <PixelCharacter type="anahotta" className="w-8 h-10 sm:w-10 sm:h-12 animate-bounce" style={{ animationDelay: '0.2s' }} />
       </div>
-      <div className="text-white font-pixel text-[10px] sm:text-xs text-center drop-shadow-lg mb-1">
+      <div className="text-white font-pixel text-[8px] sm:text-[10px] text-center drop-shadow-lg mb-1">
         {isLastLevel ? '' : 'REUNITED!'}
       </div>
       {isLastLevel ? (
-        <div className="text-yellow-200 font-pixel text-[8px] sm:text-[10px] text-center drop-shadow-lg mb-4 animate-pulse leading-relaxed">
+        <div className="text-yellow-200 font-pixel text-[7px] sm:text-[8px] text-center drop-shadow-lg mb-2 animate-pulse leading-relaxed">
           ANAHOTTA,<br />WILL YOU MARRY ME?
         </div>
       ) : (
-        <div className="text-white/70 font-pixel text-[7px] sm:text-[8px] text-center mb-4">
+        <div className="text-white/70 font-pixel text-[6px] sm:text-[7px] text-center mb-2">
           Level {level} Complete!
         </div>
       )}
       <Button onClick={onContinue} color={isLastLevel ? 'pink' : 'green'}>
-        {isLastLevel ? 'YES! 💍' : 'CONTINUE →'}
+        {isLastLevel ? 'YES! 💍' : 'NEXT →'}
       </Button>
-      {/* Floating hearts */}
-      {[...Array(8)].map((_, i) => (
+      {/* Floating hearts - fewer and smaller */}
+      {[...Array(4)].map((_, i) => (
         <div
           key={i}
-          className="absolute w-4 h-4 text-white/20 animate-pulse"
-          style={{ left: `${10 + i * 12}%`, top: `${20 + (i % 3) * 25}%`, animationDelay: `${i * 0.3}s` }}
+          className="absolute w-3 h-3 text-white/20 animate-pulse"
+          style={{ left: `${15 + i * 20}%`, top: `${10 + (i % 2) * 70}%`, animationDelay: `${i * 0.3}s` }}
         >
           <PixelHeart />
         </div>
@@ -312,37 +312,22 @@ const ReunionScreen = ({ level, onContinue }) => {
 // --- VICTORY SCREEN ---
 
 const VictoryScreen = ({ onRestart }) => (
-  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-pink-500 via-rose-400 to-red-400 relative overflow-hidden">
-    <div className="text-yellow-200 font-pixel text-sm sm:text-xl mb-2 drop-shadow-lg animate-pulse text-center leading-relaxed">
+  <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-pink-500 via-rose-400 to-red-400 relative overflow-hidden p-2">
+    <div className="text-yellow-200 font-pixel text-[10px] sm:text-sm mb-1 drop-shadow-lg animate-pulse text-center leading-relaxed">
       💕 HAPPY VALENTINE'S DAY 💕<br />ANAHOTTA!
     </div>
-    <div className="text-white/90 font-pixel text-[7px] sm:text-[9px] mb-3 text-center">
-      FROM DURHAM TO LEBANON<br />A LOVE STORY
+    <div className="text-white/90 font-pixel text-[6px] sm:text-[7px] mb-2 text-center">
+      FROM DURHAM TO LEBANON
     </div>
-    <div className="flex items-end gap-2 mb-3">
-      <PixelCharacter type="snehan" className="w-10 h-12 sm:w-12 sm:h-14" />
-      <div className="w-6 h-6 sm:w-8 sm:h-8"><PixelRing /></div>
-      <PixelCharacter type="anahotta" className="w-10 h-12 sm:w-12 sm:h-14" />
+    <div className="flex items-end gap-2 mb-2">
+      <PixelCharacter type="snehan" className="w-8 h-10 sm:w-10 sm:h-12" />
+      <div className="w-5 h-5 sm:w-6 sm:h-6"><PixelRing /></div>
+      <PixelCharacter type="anahotta" className="w-8 h-10 sm:w-10 sm:h-12" />
     </div>
-    <div className="text-white font-pixel text-[8px] sm:text-[10px] mb-4">
+    <div className="text-white font-pixel text-[7px] sm:text-[8px] mb-2">
       SNEHAN ❤️ ANAHOTTA
     </div>
     <Button onClick={onRestart} color="pink">PLAY AGAIN</Button>
-    {/* Confetti hearts */}
-    {[...Array(15)].map((_, i) => (
-      <div
-        key={i}
-        className="absolute w-3 h-3 text-white/30 animate-bounce"
-        style={{
-          left: `${Math.random() * 90 + 5}%`,
-          top: `${Math.random() * 80 + 10}%`,
-          animationDelay: `${Math.random() * 2}s`,
-          animationDuration: `${1 + Math.random()}s`
-        }}
-      >
-        <PixelHeart />
-      </div>
-    ))}
   </div>
 );
 
@@ -1482,53 +1467,38 @@ const StoryIntro = ({ onComplete }) => {
   const isLastPage = page === pages.length - 1;
 
   return (
-    <div className={`w-full h-full flex flex-col items-center justify-center bg-gradient-to-b ${currentPage.bg} p-4 relative overflow-hidden`}>
-      {/* Floating hearts background */}
-      {[...Array(6)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-4 h-4 text-white/20 animate-pulse"
-          style={{
-            left: `${10 + i * 15}%`,
-            top: `${15 + (i % 3) * 25}%`,
-            animationDelay: `${i * 0.3}s`
-          }}
-        >
-          <PixelHeart />
-        </div>
-      ))}
-
+    <div className={`w-full h-full flex flex-col items-center justify-center bg-gradient-to-b ${currentPage.bg} p-2 relative overflow-hidden`}>
       {/* Page indicator */}
-      <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-1">
+      <div className="absolute top-1 left-1/2 -translate-x-1/2 flex gap-1">
         {pages.map((_, i) => (
           <div
             key={i}
-            className={`w-2 h-2 rounded-full transition-all ${i === page ? 'bg-white' : 'bg-white/30'}`}
+            className={`w-1.5 h-1.5 rounded-full transition-all ${i === page ? 'bg-white' : 'bg-white/30'}`}
           />
         ))}
       </div>
 
       {/* Content */}
-      <div className="text-4xl mb-3 animate-bounce">{currentPage.emoji}</div>
-      <div className="text-white text-xs sm:text-sm mb-3 drop-shadow-lg text-center font-pixel">
+      <div className="text-2xl sm:text-3xl mb-2">{currentPage.emoji}</div>
+      <div className="text-white text-[9px] sm:text-xs mb-2 drop-shadow-lg text-center font-pixel">
         {currentPage.title}
       </div>
-      <div className="text-white/90 text-[7px] sm:text-[8px] leading-relaxed text-center max-w-[240px] mb-6 font-pixel">
+      <div className="text-white/90 text-[6px] sm:text-[7px] leading-relaxed text-center max-w-[200px] sm:max-w-[240px] mb-3 font-pixel">
         {currentPage.text}
       </div>
 
       {/* Navigation */}
-      <div className="flex gap-3">
+      <div className="flex gap-2">
         {page > 0 && (
           <Button onClick={() => setPage(p => p - 1)} color="gray">
-            ← BACK
+            ←
           </Button>
         )}
         <Button
           onClick={() => isLastPage ? onComplete() : setPage(p => p + 1)}
           color={isLastPage ? "pink" : "green"}
         >
-          {isLastPage ? "BEGIN QUEST 💕" : "NEXT →"}
+          {isLastPage ? "BEGIN 💕" : "NEXT →"}
         </Button>
       </div>
 
@@ -1536,64 +1506,48 @@ const StoryIntro = ({ onComplete }) => {
       {!isLastPage && (
         <button
           onClick={onComplete}
-          className="absolute bottom-3 right-3 text-white/40 text-[6px] font-pixel hover:text-white/70 transition-colors"
+          className="absolute bottom-1 right-2 text-white/40 text-[5px] font-pixel hover:text-white/70 transition-colors"
         >
-          SKIP →
+          SKIP
         </button>
       )}
     </div>
   );
 };
 
-// --- PASSWORD SCREEN ---
+// --- SETUP INSTRUCTIONS SCREEN ---
 
-const PasswordScreen = ({ onSuccess }) => {
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-  const correctPassword = 'iluvu';
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password.toLowerCase() === correctPassword) {
-      onSuccess();
-    } else {
-      setError(true);
-      setPassword('');
-      setTimeout(() => setError(false), 1000);
-    }
-  };
-
+const SetupScreen = ({ onContinue }) => {
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-pink-400 to-rose-500 p-4">
-      <div className="w-10 h-10 sm:w-12 sm:h-12 text-white animate-pulse mb-3"><PixelHeart /></div>
-      <div className="text-white text-sm sm:text-lg mb-1 drop-shadow-lg">LOVE QUEST</div>
-      <div className="text-white/60 text-[6px] sm:text-[7px] mb-4">Enter the secret password</div>
+    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-pink-400 to-rose-500 p-3 overflow-hidden">
+      <div className="w-8 h-8 text-white animate-pulse mb-2"><PixelHeart /></div>
+      <div className="text-white text-xs sm:text-sm mb-3 drop-shadow-lg">LOVE QUEST</div>
       
-      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-3">
-        <input
-          type="text"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password..."
-          autoComplete="off"
-          autoCapitalize="off"
-          className={`
-            px-4 py-2 font-pixel text-[10px] sm:text-xs text-center
-            bg-white/90 border-4 rounded
-            outline-none w-36 sm:w-44
-            ${error ? 'border-red-500 bg-red-100 animate-pulse' : 'border-pink-300 focus:border-pink-500'}
-          `}
-        />
-        <Button type="submit" color="pink">UNLOCK 💕</Button>
-      </form>
-      
-      {error && (
-        <div className="text-red-200 text-[7px] mt-2 font-pixel animate-pulse">
-          Wrong password!
+      <div className="bg-white/20 rounded-lg p-3 mb-3 max-w-[220px]">
+        <div className="text-white text-[7px] sm:text-[8px] mb-2 text-center font-pixel">
+          FOR BEST EXPERIENCE:
         </div>
-      )}
+        
+        <div className="flex items-start gap-2 mb-2">
+          <div className="text-white text-sm">1️⃣</div>
+          <div className="text-white/90 text-[6px] sm:text-[7px] leading-relaxed">
+            Save to home screen<br/>
+            <span className="text-white/60">(Share → Add to Home)</span>
+          </div>
+        </div>
+        
+        <div className="flex items-start gap-2">
+          <div className="text-white text-sm">2️⃣</div>
+          <div className="text-white/90 text-[6px] sm:text-[7px] leading-relaxed">
+            Rotate phone sideways<br/>
+            <span className="text-white/60">📱 → 🔄 → 📱</span>
+          </div>
+        </div>
+      </div>
       
-      <div className="text-white/30 text-[5px] mt-6">By Snehan Games</div>
+      <Button onClick={onContinue} color="pink">GOT IT! 💕</Button>
+      
+      <div className="text-white/30 text-[5px] mt-3">By Snehan Games</div>
     </div>
   );
 };
@@ -1714,20 +1668,20 @@ export default function App() {
           <div className="w-[280px] h-[210px] sm:w-[320px] sm:h-[240px] rounded shadow-inner overflow-hidden relative border-2 border-neutral-700/50 bg-[#E0F8CF]">
             <ScanlineOverlay />
 
-            {/* --- PASSWORD SCREEN --- */}
+            {/* --- SETUP INSTRUCTIONS --- */}
             {gameState === 'PASSWORD' && (
-              <PasswordScreen onSuccess={() => setGameState('START')} />
+              <SetupScreen onContinue={() => setGameState('START')} />
             )}
 
             {/* --- START SCREEN --- */}
             {gameState === 'START' && (
-              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-pink-400 to-rose-500 p-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 text-white animate-pulse mb-2"><PixelHeart /></div>
-                <div className="text-white text-lg sm:text-2xl mb-1 drop-shadow-lg">LOVE QUEST</div>
-                <div className="text-white/70 text-[6px] sm:text-[7px] mb-1">A Journey of Love</div>
-                <div className="text-white/50 text-[5px] sm:text-[6px] mb-4">Durham UK → Lebanon NH</div>
+              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-pink-400 to-rose-500 p-2">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 text-white animate-pulse mb-2"><PixelHeart /></div>
+                <div className="text-white text-sm sm:text-lg mb-1 drop-shadow-lg">LOVE QUEST</div>
+                <div className="text-white/70 text-[5px] sm:text-[6px] mb-1">A Journey of Love</div>
+                <div className="text-white/50 text-[5px] sm:text-[6px] mb-3">Durham UK → Lebanon NH</div>
                 <Button onClick={() => setGameState('STORY')} color="pink">START</Button>
-                <div className="text-white/40 text-[5px] mt-4">By Snehan Games</div>
+                <div className="text-white/40 text-[5px] mt-2">By Snehan Games</div>
               </div>
             )}
 
