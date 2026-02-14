@@ -1440,8 +1440,65 @@ const Level7_LebanonProposal = ({ onWin, keysRef, actionRef }) => {
 // MAIN APP
 // ============================================================================
 
+// --- PASSWORD SCREEN ---
+
+const PasswordScreen = ({ onSuccess }) => {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  const correctPassword = 'iluvu';
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (password.toLowerCase() === correctPassword) {
+      onSuccess();
+    } else {
+      setError(true);
+      setPassword('');
+      setTimeout(() => setError(false), 1000);
+    }
+  };
+
+  return (
+    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-pink-400 to-rose-500 p-4">
+      <div className="w-10 h-10 sm:w-12 sm:h-12 text-white animate-pulse mb-3"><PixelHeart /></div>
+      <div className="text-white text-sm sm:text-lg mb-1 drop-shadow-lg">LOVE QUEST</div>
+      <div className="text-white/60 text-[6px] sm:text-[7px] mb-4">Enter the secret password</div>
+      
+      <form onSubmit={handleSubmit} className="flex flex-col items-center gap-3">
+        <input
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password..."
+          autoComplete="off"
+          autoCapitalize="off"
+          className={`
+            px-4 py-2 font-pixel text-[10px] sm:text-xs text-center
+            bg-white/90 border-4 rounded
+            outline-none w-36 sm:w-44
+            ${error ? 'border-red-500 bg-red-100 animate-pulse' : 'border-pink-300 focus:border-pink-500'}
+          `}
+        />
+        <Button type="submit" color="pink">UNLOCK 💕</Button>
+      </form>
+      
+      {error && (
+        <div className="text-red-200 text-[7px] mt-2 font-pixel animate-pulse">
+          Wrong password!
+        </div>
+      )}
+      
+      <div className="text-white/30 text-[5px] mt-6">By Snehan Games</div>
+    </div>
+  );
+};
+
+// ============================================================================
+// MAIN APP
+// ============================================================================
+
 export default function App() {
-  const [gameState, setGameState] = useState('START'); // START, LEVEL_INTRO, PLAYING, REUNION, VICTORY
+  const [gameState, setGameState] = useState('PASSWORD'); // PASSWORD, START, LEVEL_INTRO, PLAYING, REUNION, VICTORY
   const [currentLevel, setCurrentLevel] = useState(1);
 
   const keysRef = useRef(new Set());
@@ -1547,6 +1604,11 @@ export default function App() {
           <div className="w-full aspect-[4/3] rounded shadow-inner overflow-hidden relative border-2 border-neutral-700/50 bg-[#E0F8CF]">
             <ScanlineOverlay />
 
+            {/* --- PASSWORD SCREEN --- */}
+            {gameState === 'PASSWORD' && (
+              <PasswordScreen onSuccess={() => setGameState('START')} />
+            )}
+
             {/* --- START SCREEN --- */}
             {gameState === 'START' && (
               <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-pink-400 to-rose-500 p-4">
@@ -1585,6 +1647,9 @@ export default function App() {
               <VictoryScreen onRestart={handleRestart} />
             )}
           </div>
+
+          {/* Spacer between screen and controls */}
+          <div className="h-4 sm:h-6" />
 
           {/* ====== CONTROLS ====== */}
           <div className={`flex items-center justify-between px-1 py-1 transition-opacity ${!isPlaying ? 'opacity-30 pointer-events-none' : ''}`}>
