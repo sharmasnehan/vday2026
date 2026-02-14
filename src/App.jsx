@@ -1531,7 +1531,7 @@ const SetupScreen = ({ onContinue }) => {
         <div className="flex items-start gap-2 mb-2">
           <div className="text-white text-sm">1️⃣</div>
           <div className="text-white/90 text-[6px] sm:text-[7px] leading-relaxed">
-            Save to home screen<br/>
+            Save as a web app<br/>
             <span className="text-white/60">(Share → Add to Home)</span>
           </div>
         </div>
