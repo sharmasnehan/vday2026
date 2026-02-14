@@ -1765,7 +1765,7 @@ export default function App() {
 
           {/* Brand */}
           <div className="text-right pr-2 py-1 text-neutral-600 font-bold italic font-sans text-sm tracking-tighter">
-            GameBoy<span className="text-pink-500 text-[7px] not-italic ml-0.5 font-pixel">COLOR</span>
+            SneBoy<span className="text-pink-500 text-[7px] not-italic ml-0.5 font-pixel">COLOR</span>
           </div>
         </div>
       </div>
