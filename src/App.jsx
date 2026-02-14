@@ -1440,6 +1440,111 @@ const Level7_LebanonProposal = ({ onWin, keysRef, actionRef }) => {
 // MAIN APP
 // ============================================================================
 
+// --- STORY INTRO SCREENS ---
+
+const StoryIntro = ({ onComplete }) => {
+  const [page, setPage] = useState(0);
+
+  const pages = [
+    {
+      title: "A LOVE STORY",
+      text: "Ten years ago, two hearts found each other on a summer program called DukeEngage...",
+      emoji: "💕",
+      bg: "from-rose-400 to-pink-500",
+    },
+    {
+      title: "SNEHAN & ANAHOTTA",
+      text: "From the moment they met, they knew this was something special. A connection that would span continents and years.",
+      emoji: "✨",
+      bg: "from-purple-400 to-pink-500",
+    },
+    {
+      title: "THROUGH IT ALL",
+      text: "Distance could never keep them apart. Snehan would cross oceans, brave winters, and move mountains just to be with her.",
+      emoji: "🌍",
+      bg: "from-blue-400 to-purple-500",
+    },
+    {
+      title: "ONE TRUE LOVE",
+      text: "A decade of adventures, laughter, and love. From Durham to Durham, across cities and countries...",
+      emoji: "💑",
+      bg: "from-pink-400 to-rose-500",
+    },
+    {
+      title: "DUKEENGAGED",
+      text: "They met on DukeEngage. Now, after 10 beautiful years... it's time to become DukeENGAGED.",
+      emoji: "💍",
+      bg: "from-amber-400 to-rose-500",
+    },
+  ];
+
+  const currentPage = pages[page];
+  const isLastPage = page === pages.length - 1;
+
+  return (
+    <div className={`w-full h-full flex flex-col items-center justify-center bg-gradient-to-b ${currentPage.bg} p-4 relative overflow-hidden`}>
+      {/* Floating hearts background */}
+      {[...Array(6)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-4 h-4 text-white/20 animate-pulse"
+          style={{
+            left: `${10 + i * 15}%`,
+            top: `${15 + (i % 3) * 25}%`,
+            animationDelay: `${i * 0.3}s`
+          }}
+        >
+          <PixelHeart />
+        </div>
+      ))}
+
+      {/* Page indicator */}
+      <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-1">
+        {pages.map((_, i) => (
+          <div
+            key={i}
+            className={`w-2 h-2 rounded-full transition-all ${i === page ? 'bg-white' : 'bg-white/30'}`}
+          />
+        ))}
+      </div>
+
+      {/* Content */}
+      <div className="text-4xl mb-3 animate-bounce">{currentPage.emoji}</div>
+      <div className="text-white text-xs sm:text-sm mb-3 drop-shadow-lg text-center font-pixel">
+        {currentPage.title}
+      </div>
+      <div className="text-white/90 text-[7px] sm:text-[8px] leading-relaxed text-center max-w-[240px] mb-6 font-pixel">
+        {currentPage.text}
+      </div>
+
+      {/* Navigation */}
+      <div className="flex gap-3">
+        {page > 0 && (
+          <Button onClick={() => setPage(p => p - 1)} color="gray">
+            ← BACK
+          </Button>
+        )}
+        <Button
+          onClick={() => isLastPage ? onComplete() : setPage(p => p + 1)}
+          color={isLastPage ? "pink" : "green"}
+        >
+          {isLastPage ? "BEGIN QUEST 💕" : "NEXT →"}
+        </Button>
+      </div>
+
+      {/* Skip option */}
+      {!isLastPage && (
+        <button
+          onClick={onComplete}
+          className="absolute bottom-3 right-3 text-white/40 text-[6px] font-pixel hover:text-white/70 transition-colors"
+        >
+          SKIP →
+        </button>
+      )}
+    </div>
+  );
+};
+
 // --- PASSWORD SCREEN ---
 
 const PasswordScreen = ({ onSuccess }) => {
@@ -1498,7 +1603,7 @@ const PasswordScreen = ({ onSuccess }) => {
 // ============================================================================
 
 export default function App() {
-  const [gameState, setGameState] = useState('PASSWORD'); // PASSWORD, START, LEVEL_INTRO, PLAYING, REUNION, VICTORY
+  const [gameState, setGameState] = useState('PASSWORD'); // PASSWORD, START, STORY, LEVEL_INTRO, PLAYING, REUNION, VICTORY
   const [currentLevel, setCurrentLevel] = useState(1);
 
   const keysRef = useRef(new Set());
@@ -1616,9 +1721,14 @@ export default function App() {
                 <div className="text-white text-lg sm:text-2xl mb-1 drop-shadow-lg">LOVE QUEST</div>
                 <div className="text-white/70 text-[6px] sm:text-[7px] mb-1">A Journey of Love</div>
                 <div className="text-white/50 text-[5px] sm:text-[6px] mb-4">Durham UK → Lebanon NH</div>
-                <Button onClick={() => setGameState('LEVEL_INTRO')} color="pink">START</Button>
+                <Button onClick={() => setGameState('STORY')} color="pink">START</Button>
                 <div className="text-white/40 text-[5px] mt-4">By Snehan Games</div>
               </div>
+            )}
+
+            {/* --- STORY INTRO --- */}
+            {gameState === 'STORY' && (
+              <StoryIntro onComplete={() => setGameState('LEVEL_INTRO')} />
             )}
 
             {/* --- LEVEL INTRO --- */}
