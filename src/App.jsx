@@ -181,12 +181,12 @@ const ScanlineOverlay = () => (
 
 // --- MOBILE D-PAD ---
 
-const DPad = ({ keysRef, compact = false }) => {
+const DPad = ({ keysRef }) => {
   const press = (dir) => keysRef.current.add(dir);
   const release = (dir) => keysRef.current.delete(dir);
 
-  const size = compact ? 'w-[72px] h-[72px]' : 'w-[80px] h-[80px] sm:w-[96px] sm:h-[96px]';
-  const btnSize = compact ? 'w-[26px] h-[26px]' : 'w-[28px] h-[28px] sm:w-[34px] sm:h-[34px]';
+  const size = 'w-[90px] h-[90px] sm:w-[100px] sm:h-[100px]';
+  const btnSize = 'w-[32px] h-[32px] sm:w-[36px] sm:h-[36px]';
 
   const DirBtn = ({ dir, children, className = "" }) => (
     <button
@@ -235,7 +235,7 @@ const ActionButton = ({ label, onAction, color = "rose", subLabel = "" }) => {
   return (
     <div className="flex flex-col items-center gap-1">
       <button
-        className={`w-[44px] h-[44px] sm:w-[52px] sm:h-[52px] rounded-full border-[3px] shadow-[2px_2px_0px_rgba(0,0,0,0.3)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 font-pixel text-[9px] text-white select-none ${colors[color]}`}
+        className={`w-[52px] h-[52px] sm:w-[58px] sm:h-[58px] rounded-full border-[3px] shadow-[3px_3px_0px_rgba(0,0,0,0.3)] active:shadow-none active:translate-x-0.5 active:translate-y-0.5 font-pixel text-[10px] sm:text-xs text-white select-none ${colors[color]}`}
         onPointerDown={start}
         onPointerUp={stop}
         onPointerLeave={stop}
@@ -1574,7 +1574,7 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen min-h-[100dvh] bg-gradient-to-b from-pink-200 to-pink-300 flex flex-col items-center justify-center p-2 font-pixel select-none overflow-hidden"
+      className="min-h-screen min-h-[100dvh] bg-gradient-to-b from-pink-200 to-pink-300 flex flex-col items-start justify-start pt-2 px-2 pb-4 font-pixel select-none overflow-hidden"
       style={{ touchAction: 'none' }}
     >
       <style>{`
@@ -1584,8 +1584,8 @@ export default function App() {
       `}</style>
 
       {/* === GAME CONTAINER === */}
-      <div className="w-full max-w-[360px] sm:max-w-md bg-neutral-200 rounded-2xl p-2 sm:p-3 shadow-2xl border-b-4 border-r-4 border-neutral-300">
-        <div className="bg-neutral-800 rounded-xl p-2 sm:p-3 flex flex-col gap-2">
+      <div className="w-full max-w-[400px] mx-auto bg-neutral-200 rounded-2xl p-2 shadow-2xl border-b-4 border-r-4 border-neutral-300">
+        <div className="bg-neutral-800 rounded-xl p-2 flex flex-col">
 
           {/* Power LED + Level indicator */}
           <div className="flex items-center justify-between px-1">
@@ -1648,40 +1648,39 @@ export default function App() {
             )}
           </div>
 
-          {/* Spacer between screen and controls */}
-          <div className="h-4 sm:h-6" />
-
-          {/* ====== CONTROLS ====== */}
-          <div className={`flex items-center justify-between px-1 py-1 transition-opacity ${!isPlaying ? 'opacity-30 pointer-events-none' : ''}`}>
-            <DPad keysRef={keysRef} compact />
-
-            <div className="flex gap-2 -rotate-[12deg]">
-              <ActionButton
-                label="B"
-                color="rose"
-              />
-              <ActionButton
-                label="A"
-                onAction={() => actionRef.current?.()}
-                color="rose"
-                subLabel="Act"
-              />
-            </div>
-          </div>
-
           {/* Brand */}
-          <div className="text-right pr-2 text-neutral-600 font-bold italic font-sans text-sm tracking-tighter">
+          <div className="text-right pr-2 py-1 text-neutral-600 font-bold italic font-sans text-sm tracking-tighter">
             GameBoy<span className="text-pink-500 text-[7px] not-italic ml-0.5 font-pixel">COLOR</span>
           </div>
         </div>
       </div>
 
-      {/* Instructions (mobile hint) */}
-      {isPlaying && (
-        <div className="mt-2 text-pink-700/60 text-[6px] sm:text-[7px] font-pixel text-center">
-          D-PAD: Move • A: Action • Keyboard: WASD/Arrows + Space
+      {/* ====== CONTROLS - OUTSIDE THE GAMEBOY ====== */}
+      <div className="w-full max-w-[400px] mx-auto mt-8 sm:mt-12">
+        <div className={`flex items-center justify-between px-2 sm:px-4 transition-opacity ${!isPlaying ? 'opacity-30 pointer-events-none' : ''}`}>
+          <DPad keysRef={keysRef} />
+
+          <div className="flex gap-3 -rotate-[12deg]">
+            <ActionButton
+              label="B"
+              color="rose"
+            />
+            <ActionButton
+              label="A"
+              onAction={() => actionRef.current?.()}
+              color="rose"
+              subLabel="Act"
+            />
+          </div>
         </div>
-      )}
+        
+        {/* Instructions */}
+        {isPlaying && (
+          <div className="mt-4 text-pink-700/50 text-[6px] sm:text-[7px] font-pixel text-center">
+            D-PAD: Move • A: Action
+          </div>
+        )}
+      </div>
     </div>
   );
 }
