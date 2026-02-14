@@ -1679,7 +1679,7 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen min-h-[100dvh] bg-gradient-to-b from-pink-200 to-pink-300 flex flex-col items-start justify-start pt-2 px-2 pb-4 font-pixel select-none overflow-hidden"
+      className="min-h-screen min-h-[100dvh] bg-gradient-to-b from-pink-200 to-pink-300 flex flex-col items-start justify-start pt-6 sm:pt-8 px-2 pb-4 font-pixel select-none overflow-hidden"
       style={{ touchAction: 'none' }}
     >
       <style>{`
